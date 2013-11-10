@@ -11,13 +11,12 @@ public abstract class Stage {
 	protected Stack<Entity> removeStack;
 	
 	public Stage() {
-		entities = new TreeSet<>(new SortByUpdate());
-		addStack = new Stack<>();
-		removeStack = new Stack<>();
+		entities = new TreeSet<Entity>(new SortByUpdate());
+		addStack = new Stack<Entity>();
+		removeStack = new Stack<Entity>();
 	}
 	
 	public TreeSet<Entity> getAllEntities() {
-		TreeSet<Entity> ans = new TreeSet<>();
 		return entities;
 	}
 	
@@ -42,7 +41,7 @@ public abstract class Stage {
 
 	public void render() {
 		SortByRender comparator = new SortByRender();
-		PriorityQueue<Entity> renderQueue = new PriorityQueue<>(entities.size(), comparator);
+		PriorityQueue<Entity> renderQueue = new PriorityQueue<Entity>(entities.size(), comparator);
 		renderQueue.addAll(entities);
 		while(!renderQueue.isEmpty()) {
 			renderQueue.poll().render();
@@ -57,7 +56,7 @@ public abstract class Stage {
 	}
 	
 	public Entity[] allInstancesAt(int x, int y) {
-		ArrayList<Entity> ans = new ArrayList<>();
+		ArrayList<Entity> ans = new ArrayList<Entity>();
 		for(Entity e : entities) {
 			if(e.x == x && e.y == y && !e.willBeRemoved()) ans.add(e);
 		}
@@ -74,7 +73,7 @@ public abstract class Stage {
 	}
 	
 	public Collidable[] collideableAt(int x, int y) {
-		ArrayList<Collidable> ans = new ArrayList<>();
+		ArrayList<Collidable> ans = new ArrayList<Collidable>();
 		for(Entity e : entities) {
 			if(e instanceof Collidable && e.x == x && e.y == y && !e.willBeRemoved()) 
 				ans.add((Collidable)e);

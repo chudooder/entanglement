@@ -86,6 +86,7 @@ public class RebindKeysStage extends Stage {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void render() {
 		Renderer.drawRectangle(Renderer.getCamera().getScreenX(), Renderer
 				.getCamera().getScreenY(),
@@ -168,6 +169,7 @@ public class RebindKeysStage extends Stage {
 		}
 		
 		@Override
+		@SuppressWarnings("deprecation")
 		public void render() {
 			super.render();
 			Entanglement.sourceSans16.drawString(x+14, y+6, "Done", Color.black);

@@ -1,7 +1,6 @@
 package net.grid;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import net.entity.Buttonable;
 import net.entity.GriddedEntity;

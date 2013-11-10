@@ -8,7 +8,6 @@ import net.entity.RunTimer;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Collidable;
 import chu.engine.Entity;

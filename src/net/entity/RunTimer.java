@@ -37,6 +37,7 @@ public class RunTimer extends Entity {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void render() {
 		if(active) {
 			String text = String.format("%2d:%02d.%03d", (int) (time / 60000),

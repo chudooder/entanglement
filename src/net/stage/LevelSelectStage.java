@@ -49,8 +49,8 @@ public class LevelSelectStage extends Stage {
 	}
 
 	public LevelSelectStage() {
-		levelList = new ArrayList<>();
-		levels = new HashMap<>();
+		levelList = new ArrayList<LevelEntry>();
+		levels = new HashMap<String, LevelEntry>();
 		levelList.add(new LevelEntry("Beginning", 1));
 		levelList.add(new LevelEntry("Push", 1));
 		levelList.add(new LevelEntry("Tether", 1));
@@ -96,7 +96,9 @@ public class LevelSelectStage extends Stage {
 				ObjectInputStream ois = new ObjectInputStream(inputStream);
 				level = (EditorLevel) ois.readObject();
 				ois.close();
-			} catch (IOException | ClassNotFoundException e) {
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			levels.put(name, this);
@@ -140,13 +142,13 @@ public class LevelSelectStage extends Stage {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void render() {
 		/* Background stuff */
 		Renderer.drawRectangle(Renderer.getCamera().getScreenX(), Renderer
 				.getCamera().getScreenY(),
 				Renderer.getCamera().getScreenX() + 640, Renderer.getCamera()
 						.getScreenY() + 480, 1.0f, Color.white);
-		int starXPos = 300;
 		Renderer.drawRectangle(0, Y_OFFSET + (currentLevel - offset) * 32, 320,
 				Y_OFFSET + 32 + (currentLevel - offset) * 32, 1.0f, new Color(
 						35, 37, 136));

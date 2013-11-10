@@ -20,7 +20,7 @@ public class Settings {
 	public static int K_FIRE2 = 7;
 	public static int K_CLEAR = 8;
 	public static int K_RESET = 9;
-	private static Map<Integer, Integer> CONTROLS = new HashMap<>();
+	private static Map<Integer, Integer> CONTROLS = new HashMap<Integer, Integer>();
 	
 	public static void readFromINI() {
 		File file = new File("settings.ini");

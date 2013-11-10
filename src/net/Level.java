@@ -1,8 +1,5 @@
 package net;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import net.editor.EditorLevel;
@@ -51,7 +48,7 @@ public class Level {
 	 *         of the list of terrain objects.
 	 */
 	public ArrayList<TerrainHitbox> getOptimizedTerrain(Element[][] grid) {
-		ArrayList<TerrainHitbox> terrain = new ArrayList<>();
+		ArrayList<TerrainHitbox> terrain = new ArrayList<TerrainHitbox>();
 		boolean[][] alg = new boolean[grid.length][grid[0].length];
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {

@@ -12,7 +12,6 @@ import java.awt.Font;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.SoundStore;
 

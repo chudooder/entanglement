@@ -54,8 +54,8 @@ public abstract class Game {
 		glOrtho(0, windowWidth, windowHeight, 0, 1, -1);		//It's basically a camera
 		glMatrixMode(GL_MODELVIEW);
 		
-		keys = new HashMap<>();
-		mouseEvents = new HashMap<>();
+		keys = new HashMap<Integer, Boolean>();
+		mouseEvents = new HashMap<MouseEvent, Boolean>();
 	}
 	
 	public abstract void loop();

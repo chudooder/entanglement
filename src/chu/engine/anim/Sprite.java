@@ -10,7 +10,7 @@ public class Sprite {
 	protected Animation currentAnimation;
 	
 	public Sprite() {
-		animations = new HashMap<>();
+		animations = new HashMap<String, Animation>();
 	}
 	
 	public void addAnimation(String s, Texture t, int width, int height, int frames, int speed) {

@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 
 import org.newdawn.slick.Color;
 
-import net.Level;
 import chu.engine.Entity;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
@@ -59,8 +58,9 @@ public class EditorStage extends Stage{
 				level = (EditorLevel) ois.readObject();
 				level.fix();
 				ois.close();
-			} catch (IOException | ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}

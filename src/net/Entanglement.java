@@ -9,12 +9,8 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 
 import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 import net.editor.EditorLevel;
-import net.entity.RunTimer;
 import net.stage.EntanglementStage;
 import net.stage.LevelSelectStage;
 import net.stage.MainMenuStage;
@@ -23,7 +19,6 @@ import net.stage.RebindKeysStage;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.util.ResourceLoader;
@@ -32,6 +27,7 @@ import chu.engine.Game;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 
+@SuppressWarnings("deprecation")
 public class Entanglement extends Game {
 	
 	static Stage currentStage;
