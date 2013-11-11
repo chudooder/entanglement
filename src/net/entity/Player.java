@@ -107,7 +107,7 @@ public class Player extends Entity implements Collidable {
 		if(x < 0) x = 0;
 		if(x > 640-32) x = 640-32;
 		for (Integer key : inputs.keySet()) {
-			if (key == Settings.getKey(Settings.K_JUMP) && isGrounded()) {
+			if (inputs.get(key) && key == Settings.getKey(Settings.K_JUMP) && isGrounded()) {
 				setGrounded(false);
 				vy = -250f;
 				sprite.setAnimation("JUMP");

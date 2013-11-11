@@ -13,7 +13,7 @@ public class PlatformZone extends Entity implements Collidable {
 	public PlatformZone(float x, float y, LiftPlatform platform) {
 		super(x, y);
 		parent = platform;
-		hitbox = new RectangleHitbox(this, 0, 0, 32, 1);
+		hitbox = new RectangleHitbox(this, 1, 0, 30, 1);
 		player = null;
 		solid = false;
 	}

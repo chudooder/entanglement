@@ -29,7 +29,7 @@ import chu.engine.Direction;
  */
 public class Level {
 
-	private GriddedEntity[][] grid;
+	public GriddedEntity[][] grid;
 	private int[][] wireGrid;
 
 	private int height;
@@ -103,48 +103,17 @@ public class Level {
 	}
 
 	public boolean move(int x, int y, Direction d) {
-		// 0 = right, 1 = up, 2 = left, 3 = down
-		GriddedEntity temp = grid[y][x];
-		if (!(temp instanceof Block))
-			return false;
-		if (y + d.getUnitY() < 0 || y + d.getUnitY() > height
-				|| x + d.getUnitX() < 0 || x + d.getUnitX() > width)
-			return false;
-		if (grid[y + d.getUnitY()][x + d.getUnitX()] == null) {
-			grid[y + d.getUnitY()][x + d.getUnitX()] = temp;
-			grid[y][x] = null;
-			temp.xcoord += d.getUnitX();
-			temp.ycoord += d.getUnitY();
-			return true;
-		} else {
-			if (grid[y + d.getUnitY()][x + d.getUnitX()].move(d)) {
-				grid[y + d.getUnitY()][x + d.getUnitX()] = temp;
-				grid[y][x] = null;
-				temp.xcoord += d.getUnitX();
-				temp.ycoord += d.getUnitY();
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
-
-	public boolean testMove(int x, int y, Direction d) {
-		GriddedEntity temp = grid[y][x];
-		if (!(temp instanceof Block))
-			return false;
 		if (y + d.getUnitY() < 0 || y + d.getUnitY() >= height
 				|| x + d.getUnitX() < 0 || x + d.getUnitX() >= width)
 			return false;
-		if (grid[y + d.getUnitY()][x + d.getUnitX()] == null) {
-			return true;
-		} else {
-			if (testMove(x + d.getUnitX(), y + d.getUnitY(), d)) {
-				return true;
-			} else {
-				return false;
-			}
+		GriddedEntity e = grid[y][x];
+		grid[y+d.getUnitY()][x+d.getUnitX()] = grid[y][x];
+		grid[y][x] = null;
+		if(e != null) {
+			e.xcoord = x + d.getUnitX();
+			e.ycoord = y + d.getUnitY();
 		}
+		return true;
 	}
 
 	public void set(int x, int y, GriddedEntity e) {
@@ -154,7 +123,17 @@ public class Level {
 			e.ycoord = y;
 		}
 	}
-
+	
+	public GriddedEntity get(int x, int y) {
+		if (y < 0 || y >= height || x < 0 || x >= width)
+			return null;
+		return grid[y][x];
+	}
+	
+	public boolean inBounds(int x, int y) {
+		return !(y < 0 || y >= height || x < 0 || x >= width);
+	}
+	
 	public static Level setUpStage(EditorLevel editorLevel, EntanglementStage stage) {
 		String n = "";
 		int h = 0;

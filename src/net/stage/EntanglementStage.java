@@ -94,6 +94,16 @@ public class EntanglementStage extends Stage {
 		Color c1 = new Color(224, 248, 248);
 		Renderer.drawRectangle(0, 0, 640, 480, 1.0f, c0, c0, c1, c1);
 		super.render();
+		//Testing code to draw text for level data
+//		for (int i = 0; i < level.grid.length; i++) {
+//			for (int j = 0; j < level.grid[0].length; j++) {
+//				if (level.grid[i][j] != null) {
+//					Entanglement.sourceSans16.drawString(j * 32, i * 32,
+//							level.grid[i][j].getClass().getSimpleName(),
+//							Color.black);
+//				}
+//			}
+//		}
 	}
 
 	private void resolveCollisions() {
