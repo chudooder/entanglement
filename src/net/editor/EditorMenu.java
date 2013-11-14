@@ -131,6 +131,18 @@ public class EditorMenu extends Entity {
 							selectedWire = 1-selectedWire;
 						}
 					}
+					if (key == Keyboard.KEY_Z) {
+						renderWires = !renderWires;
+					}
+					if (key == Keyboard.KEY_X) {
+						renderBackground = !renderBackground;
+					}
+					if (key == Keyboard.KEY_C) {
+						renderEntities = !renderEntities;
+					}
+					if (key == Keyboard.KEY_V) {
+						renderForeground = !renderForeground;
+					}
 				} else {		//is editing name
 					if(key == Keyboard.KEY_BACK && levelName.length() > 0) {
 						levelName = levelName.substring(0, levelName.length()-1);
@@ -152,18 +164,6 @@ public class EditorMenu extends Entity {
 				}
 				if (key == Keyboard.KEY_F5){ 
 					((EditorStage)stage).loadLevel("");
-				}
-				if (key == Keyboard.KEY_Z) {
-					renderWires = !renderWires;
-				}
-				if (key == Keyboard.KEY_X) {
-					renderBackground = !renderBackground;
-				}
-				if (key == Keyboard.KEY_C) {
-					renderEntities = !renderEntities;
-				}
-				if (key == Keyboard.KEY_V) {
-					renderForeground = !renderForeground;
 				}
 			}
 		}

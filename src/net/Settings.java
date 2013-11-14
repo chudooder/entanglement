@@ -21,6 +21,8 @@ public class Settings {
 	public static int K_CLEAR = 8;
 	public static int K_RESET = 9;
 	private static Map<Integer, Integer> CONTROLS = new HashMap<Integer, Integer>();
+	private static Map<String, Boolean> HATS = new HashMap<String, Boolean>();
+	public static int HATNUM = 0;
 	
 	public static void readFromINI() {
 		File file = new File("settings.ini");
@@ -90,5 +92,14 @@ public class Settings {
 
 	public static void rebind(int control, int key) {
 		CONTROLS.put(control, key);
+	}
+	
+	public static void gotHat(String levelName) {
+		if(HATS.containsKey(levelName)) {
+			return;
+		} else {
+			HATS.put(levelName, true);
+			HATNUM++;
+		}
 	}
 }

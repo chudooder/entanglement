@@ -29,6 +29,7 @@ public class Element implements Serializable {
 	public transient static Texture TOGGLE;
 	public transient static Texture MILK_SURFACE;
 	public transient static Texture LIFT;
+	public transient static Texture HAT;
 	public transient static ArrayList<ArrayList<Texture>> LOOKUP;
 	
 	public int type;
@@ -66,6 +67,8 @@ public class Element implements Serializable {
 					.getResourceAsStream("res/milk_surface.png"));
 			LIFT = TextureLoader.getTexture("PNG", ResourceLoader
 					.getResourceAsStream("res/lift_base.png"));
+			HAT = TextureLoader.getTexture("PNG", ResourceLoader
+					.getResourceAsStream("res/hat.png"));
 			System.out.println("Loaded editor icons");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -108,6 +111,9 @@ public class Element implements Serializable {
 		lifts.add(LIFT);
 		lifts.add(LIFT);
 		LOOKUP.add(lifts);
+		ArrayList<Texture> hats = new ArrayList<Texture>();
+		hats.add(HAT);
+		LOOKUP.add(hats);
 		
 	}
 	

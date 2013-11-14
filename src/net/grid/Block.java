@@ -77,7 +77,7 @@ public class Block extends GriddedEntity implements Collidable {
 		solid = true;
 		tether = null;
 		color = colorArg;
-		renderDepth = 0.7f;
+		renderDepth = 0.68f;
 		spriteY = y * 32;
 		spriteX = x * 32;
 		spriteVY = 0;

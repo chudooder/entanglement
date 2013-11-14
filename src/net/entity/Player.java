@@ -8,6 +8,7 @@ import net.Entanglement;
 import net.Settings;
 import net.grid.Block;
 import net.grid.Exit;
+import net.grid.Hat;
 import net.stage.EntanglementStage;
 
 import org.lwjgl.input.Keyboard;
@@ -21,6 +22,7 @@ import chu.engine.Entity;
 import chu.engine.Hitbox;
 import chu.engine.RectangleHitbox;
 import chu.engine.anim.Animation;
+import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
 
 public class Player extends Entity implements Collidable {
@@ -29,7 +31,10 @@ public class Player extends Entity implements Collidable {
 	private static Texture cookie_jump;
 	private static Texture cookie_run;
 	private static Texture cookie_land;
+	private static Texture hat;
+	private static Texture cookie_happy;
 	private boolean isGrounded;
+	private boolean happy;
 	public float vy;
 	private float vx;
 	private Direction facing;
@@ -47,6 +52,10 @@ public class Player extends Entity implements Collidable {
 					ResourceLoader.getResourceAsStream("res/cookie_run.png"));
 			cookie_land = TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/cookie_land.png"));
+			hat = TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/hat.png"));
+			cookie_happy = TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/cookie_happy.png"));
 			System.out.println("Loaded player sprites");
 		} catch (IOException e) {
 
@@ -76,6 +85,13 @@ public class Player extends Entity implements Collidable {
 		orangeTether = null;
 		renderDepth = 0.6f;
 		jumpBoostTimer = 0;
+		if(Settings.HATNUM == 19) {
+			sprite.addAnimation("HAPPY", cookie_happy);
+			sprite.setAnimation("HAPPY");
+			happy = true;
+		} else {
+			happy = false;
+		}
 	}
 
 	@Override
@@ -86,11 +102,11 @@ public class Player extends Entity implements Collidable {
 		if (Keyboard.isKeyDown(Settings.getKey(Settings.K_LEFT))) {
 			vx -= 800 * delta;
 			facing = Direction.WEST;
-			if(isGrounded()) sprite.setAnimation("RUN");
+			if(isGrounded() && !happy) sprite.setAnimation("RUN");
 		} else if (Keyboard.isKeyDown(Settings.getKey(Settings.K_RIGHT))) {
 			vx += 800 * delta;
 			facing = Direction.EAST;
-			if(isGrounded()) sprite.setAnimation("RUN");
+			if(isGrounded() && !happy) sprite.setAnimation("RUN");
 		}
 		if(vx < -128) vx = -128;
 		if(vx > 128) vx = 128;
@@ -110,7 +126,7 @@ public class Player extends Entity implements Collidable {
 			if (inputs.get(key) && key == Settings.getKey(Settings.K_JUMP) && isGrounded()) {
 				setGrounded(false);
 				vy = -250f;
-				sprite.setAnimation("JUMP");
+				if(!happy) sprite.setAnimation("JUMP");
 			}
 		}
 		float gravity = 800;
@@ -125,11 +141,11 @@ public class Player extends Entity implements Collidable {
 		} else {
 			if(tryMove(0, 1) == true) {
 				setGrounded(false);
-				sprite.setAnimation("JUMP");
+				if(!happy) sprite.setAnimation("JUMP");
 			} else {
 				vy = 0;
 				jumpBoostTimer = 0;
-				if(vx == 0) sprite.setAnimation("IDLE");
+				if(vx == 0 && !happy) sprite.setAnimation("IDLE");
 			}
 		}
 
@@ -184,13 +200,16 @@ public class Player extends Entity implements Collidable {
 		Transform t = new Transform();
 		if(facing == Direction.WEST) t.flipHorizontal();
 		//for jumping animation
-		if(!isGrounded()) {
+		if(!isGrounded() && !happy) {
 			if(vy < -50) sprite.setFrame(0);
 			if(vy >= -50) sprite.setFrame(1);
 			if(vy >= 0) sprite.setFrame(2);
 			if(vy >= 50) sprite.setFrame(3);
 		}
 		sprite.renderTransformed(x, y, renderDepth, t);
+		for(int i=0; i<Settings.HATNUM; i++) {
+			Renderer.render(hat, 0, 0, 1, 1, (int)x, (int)y-14-14*i, (int)x+32, (int)y+18-14*i, renderDepth-0.01f);
+		}
 	}
 
 	@Override
@@ -225,6 +244,12 @@ public class Player extends Entity implements Collidable {
 				System.out.println("EXIT");
 				((EntanglementStage)stage).completeLevel();
 			}
+		}
+		
+		if(entity instanceof Hat) {
+			System.out.println("HAT ACQUIRED");
+			entity.destroy();
+			Settings.gotHat(((EntanglementStage)stage).getLevel().getName());
 		}
 	}
 	

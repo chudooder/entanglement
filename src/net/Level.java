@@ -11,6 +11,7 @@ import net.entity.Player;
 import net.grid.Block;
 import net.grid.Button;
 import net.grid.Exit;
+import net.grid.Hat;
 import net.grid.Lift;
 import net.grid.LiftPlatform;
 import net.grid.Milk;
@@ -195,6 +196,9 @@ public class Level {
 					stage.addEntity(pz);
 					level.set(j,i,l);
 					stage.addEntity(l);
+				} else if (type == 8) {
+					Hat hattu = new Hat(j, i, arg);
+					stage.addEntity(hattu);
 				}
 			}
 		}

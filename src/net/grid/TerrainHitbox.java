@@ -30,14 +30,12 @@ public class TerrainHitbox extends Entity {
 
 	@Override
 	public void beginStep() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void endStep() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	public void render() {

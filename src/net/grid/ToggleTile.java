@@ -45,6 +45,7 @@ public class ToggleTile extends GriddedEntity implements Buttonable {
 		if(!solid)
 			sprite.setFrame(3);
 		hitbox = new RectangleHitbox(this, 0, 0, 32, 32);
+		renderDepth = 0.7f;
 	}
 	
 	public void toggle() {

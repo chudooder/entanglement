@@ -31,6 +31,7 @@ public class LevelSelectStage extends Stage {
 	private static final int Y_OFFSET = 0;
 	private static Texture checkbox;
 	private static Texture question_mark;
+	private static Texture star;
 	protected static HashMap<String, LevelEntry> levels;
 	private int currentLevel;
 	private int offset;
@@ -42,6 +43,8 @@ public class LevelSelectStage extends Stage {
 					ResourceLoader.getResourceAsStream("res/checkbox.png"));
 			question_mark = TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/question_mark.png"));
+			star = TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/star.png"));
 			System.out.println("Loaded level select sprites");
 		} catch (IOException e) {
 
@@ -180,12 +183,12 @@ public class LevelSelectStage extends Stage {
 		/* Nifty sidebar stuff */
 		LevelEntry entry = levelList.get(currentLevel);
 		/* Level preview */
+		int x0 = 380;
+		int y0 = 64;
+		int s = 10;
 		if(entry.open) {
-			Color[][] colors = new Color[15][20];
 			Element[][] ent = levels.get(entry.name).level.grid;
-			int x0 = 380;
-			int y0 = 64;
-			int s = 10;
+			int[][] fg = levels.get(entry.name).level.foreground;
 			for(int i=0; i<ent.length; i++) {
 				for(int j=0; j<ent[0].length; j++) {
 					Color c = Color.white;
@@ -201,6 +204,9 @@ public class LevelSelectStage extends Stage {
 						else if(ent[i][j].arg == 2) c = Color.yellow;
 						else if(ent[i][j].arg == 3) c = Color.gray;
 					}
+					int tile = fg[i][j];
+					if(tile != -1 && !(tile>=13 && tile<=15 || tile>=21 && tile<=23))
+						c = Color.orange;
 					Renderer.drawRectangle(x0+j*s, y0+i*s, x0+(j+1)*s, y0+(i+1)*s, 0.0f, c);
 				}
 			}
@@ -217,6 +223,14 @@ public class LevelSelectStage extends Stage {
 			}
 		} else {
 			Renderer.render(question_mark, 0, 0, 1, 1, 352, 0, 608, 256, 0.0f);
+		}
+		/* Difficulty */
+		for(int i=0; i<5; i++) {
+			if(i < levelList.get(currentLevel).difficulty) {
+				Renderer.render(star, 0, 0, 0.5f, 1, x0+20+32*i, y0-48, x0+20+32*(i+1), y0-16, 0.0f);
+			} else {
+				Renderer.render(star, 0.5f, 0, 1, 1, x0+20+32*i, y0-48, x0+20+32*(i+1), y0-16, 0.0f);
+			}
 		}
 	}
 
