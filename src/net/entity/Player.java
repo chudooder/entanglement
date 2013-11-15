@@ -85,7 +85,7 @@ public class Player extends Entity implements Collidable {
 		orangeTether = null;
 		renderDepth = 0.6f;
 		jumpBoostTimer = 0;
-		if(Settings.HATNUM == 19) {
+		if(Settings.HATNUM == 18) {
 			sprite.addAnimation("HAPPY", cookie_happy);
 			sprite.setAnimation("HAPPY");
 			happy = true;
