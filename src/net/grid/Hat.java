@@ -3,6 +3,12 @@ package net.grid;
 import chu.engine.RectangleHitbox;
 import net.entity.GriddedEntity;
 
+/**
+ * most important class in this project, gets additional
+ * documentation
+ * @author Shawn
+ *
+ */
 public class Hat extends GriddedEntity {
 
 	public Hat(int xx, int yy, int arg) {

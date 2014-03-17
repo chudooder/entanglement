@@ -11,6 +11,11 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.RectangleHitbox;
 
+/**
+ * i have no clue how it works it just does
+ * @author Shawn
+ *
+ */
 public class LiftPlatform extends GriddedEntity {
 	
 	private static Texture lift_platform;

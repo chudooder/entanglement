@@ -71,6 +71,7 @@ public class Entanglement extends Game {
 	@Override
 	public void loop() {
 		while(!Display.isCloseRequested()) {
+			// Get delta time
 			time = System.nanoTime();
 			glClear(GL_COLOR_BUFFER_BIT |
 			        GL_DEPTH_BUFFER_BIT |
@@ -79,6 +80,7 @@ public class Entanglement extends Game {
 			getInput();
 			SoundStore.get().poll(0);
 			glPushMatrix();
+			// Update the stage
 			if(!paused) {
 				currentStage.beginStep();
 				currentStage.onStep();

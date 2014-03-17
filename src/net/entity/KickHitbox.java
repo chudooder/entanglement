@@ -4,6 +4,11 @@ import chu.engine.Direction;
 import chu.engine.Entity;
 import chu.engine.RectangleHitbox;
 
+/**
+ * like bruce lee's punches: huge force lasts only a second
+ * @author Shawn
+ *
+ */
 public class KickHitbox extends Entity {
 	
 	public Direction direction;

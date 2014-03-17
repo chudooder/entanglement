@@ -8,6 +8,11 @@ import org.newdawn.slick.Color;
 import chu.engine.Entity;
 import chu.engine.anim.Renderer;
 
+/**
+ * literally portal of duty
+ * @author Shawn
+ *
+ */
 public class Tether extends Entity {
 	Block block1;
 	Block block2;

@@ -7,8 +7,12 @@ import java.util.Map;
 
 import org.ini4j.Ini;
 
+/**
+ * options: the last bastion of free society
+ * @author Shawn
+ *
+ */
 public class Settings {
-
 	
 	public static int K_LEFT = 0;
 	public static int K_RIGHT = 1; 
@@ -52,7 +56,6 @@ public class Settings {
 				CONTROLS.put(8, ini.get("Controls", "CLEAR", int.class));
 				CONTROLS.put(9, ini.get("Controls", "RESET", int.class));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -81,7 +84,6 @@ public class Settings {
 			ini.put("Controls", "RESET", CONTROLS.get(9));
 			ini.store();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

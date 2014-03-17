@@ -186,6 +186,7 @@ public class Block extends GriddedEntity implements Collidable {
 	}
 
 	@Override
+	// Recursively called to move blocks around
 	public boolean move(Direction d, ArrayList<GriddedEntity> processed) {
 		if (processed.contains(this)) {
 			return true;

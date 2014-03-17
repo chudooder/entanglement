@@ -8,6 +8,11 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Entity;
 
+/**
+ * it's good for your bones
+ * @author Shawn
+ *
+ */
 public class Milk extends Entity {
 	
 	public static Texture surface;

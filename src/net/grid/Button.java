@@ -15,6 +15,12 @@ import chu.engine.Collidable;
 import chu.engine.Entity;
 import chu.engine.RectangleHitbox;
 
+/**
+ * press the button
+ * open the door
+ * @author Shawn
+ *
+ */
 public class Button extends Entity implements Collidable {
 
 	private static Texture no_color;

@@ -12,6 +12,11 @@ import org.newdawn.slick.util.ResourceLoader;
 import chu.engine.RectangleHitbox;
 import chu.engine.anim.Animation;
 
+/**
+ * Toggles between solid and not solid
+ * @author Shawn
+ *
+ */
 public class ToggleTile extends GriddedEntity implements Buttonable {
 	
 	private static Texture toggle_tile;

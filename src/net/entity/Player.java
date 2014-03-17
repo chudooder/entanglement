@@ -25,6 +25,11 @@ import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
 
+/**
+ * that's you
+ * @author Shawn
+ *
+ */
 public class Player extends Entity implements Collidable {
 
 	private static Texture cookie;

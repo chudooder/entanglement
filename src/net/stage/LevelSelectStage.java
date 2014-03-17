@@ -25,6 +25,12 @@ import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.MenuButton;
 
+/**
+ * Level select stage
+ * useful comment
+ * @author Shawn
+ *
+ */
 public class LevelSelectStage extends Stage {
 	private static ArrayList<LevelEntry> levelList;
 	private static final int LIST_SIZE = 15;

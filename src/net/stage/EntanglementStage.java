@@ -15,6 +15,10 @@ import chu.engine.Hitbox;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 
+/**
+ * Main game stage
+ * @author Shawn
+ */
 public class EntanglementStage extends Stage {
 
 	public Level level;

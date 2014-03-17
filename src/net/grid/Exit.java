@@ -12,6 +12,11 @@ import org.newdawn.slick.util.ResourceLoader;
 import chu.engine.RectangleHitbox;
 import chu.engine.anim.Animation;
 
+/**
+ * Get out of the level and switch the stage
+ * @author Shawn
+ *
+ */
 public class Exit extends GriddedEntity implements Buttonable {
 
 	public static Texture open_tex;

@@ -5,6 +5,11 @@ import chu.engine.Collidable;
 import chu.engine.Entity;
 import chu.engine.RectangleHitbox;
 
+/**
+ * it's like sticky glue but only when you're falling down
+ * @author Shawn
+ *
+ */
 public class PlatformZone extends Entity implements Collidable {
 	
 	public LiftPlatform parent;

@@ -16,6 +16,11 @@ import chu.engine.Entity;
 import chu.engine.RectangleHitbox;
 import chu.engine.anim.Transform;
 
+/**
+ * literally call of duty
+ * @author Shawn
+ *
+ */
 public class Shot extends Entity implements Collidable {
 	
 	private static Texture blue_shot;

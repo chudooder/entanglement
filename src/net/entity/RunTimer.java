@@ -7,6 +7,11 @@ import org.newdawn.slick.Color;
 import net.Entanglement;
 import chu.engine.Entity;
 
+/**
+ * self-esteem wrecker
+ * @author Shawn
+ *
+ */
 public class RunTimer extends Entity {
 
 	private double time;

@@ -12,6 +12,11 @@ import org.newdawn.slick.util.ResourceLoader;
 import chu.engine.Particle;
 import chu.engine.anim.Transform;
 
+/**
+ * pong
+ * @author Shawn
+ *
+ */
 public class Ping extends Particle {
 	
 	float scale;

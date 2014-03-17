@@ -17,6 +17,14 @@ import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.MenuButton;
 
+/**
+ * guess what happens here
+ * ...
+ * yep
+ * you rebind keys
+ * @author Shawn
+ *
+ */
 public class RebindKeysStage extends Stage {
 
 	private static Texture box;

@@ -29,15 +29,6 @@ public abstract class Stage {
 		e.flagForRemoval();
 		if(e != null) removeStack.push(e);
 	}
-	
-	public void update() {
-		for(Entity e : entities) {
-			e.onStep();
-			e.beginStep();
-		}
-		processAddStack();
-		processRemoveStack();
-	}
 
 	public void render() {
 		SortByRender comparator = new SortByRender();

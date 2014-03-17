@@ -14,6 +14,12 @@ import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.MenuButton;
 
+/**
+ * man documenting stuff sucks
+ * this is the main menu btw
+ * @author Shawn
+ *
+ */
 public class MainMenuStage extends Stage {
 	
 	private static Texture bg;

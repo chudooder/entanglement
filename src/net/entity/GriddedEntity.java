@@ -8,6 +8,11 @@ import net.stage.EntanglementStage;
 import chu.engine.Direction;
 import chu.engine.Entity;
 
+/**
+ * Entities bound to a grid
+ * @author Shawn
+ *
+ */
 public class GriddedEntity extends Entity {
 
 	public int xcoord;

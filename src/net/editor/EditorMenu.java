@@ -13,6 +13,11 @@ import org.newdawn.slick.util.ResourceLoader;
 import chu.engine.Entity;
 import chu.engine.anim.Renderer;
 
+/**
+ * handles input in the editor
+ * @author Shawn
+ *
+ */
 public class EditorMenu extends Entity {
 
 	private static final float FADE_TIME = 0.5f;

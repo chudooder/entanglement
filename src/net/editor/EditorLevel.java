@@ -18,7 +18,7 @@ import chu.engine.anim.Tileset;
 public class EditorLevel implements Serializable {
 	
 	/**
-	 * 
+	 * i don't know why there was a comment block here but it's gonna stay there
 	 */
 	private static final long serialVersionUID = 8978961010427430449L;
 	private static transient Texture wireTex;

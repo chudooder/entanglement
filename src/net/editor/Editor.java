@@ -19,6 +19,11 @@ import chu.engine.Game;
 import chu.engine.anim.Renderer;
 
 @SuppressWarnings("deprecation")
+/**
+ * i can make levels now
+ * @author Shawn
+ *
+ */
 public class Editor extends Game {
 	
 	EditorStage currentStage;
