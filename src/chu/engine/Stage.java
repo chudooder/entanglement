@@ -9,30 +9,51 @@ public abstract class Stage {
 	protected TreeSet<Entity> entities;
 	protected Stack<Entity> addStack;
 	protected Stack<Entity> removeStack;
+	public final String soundTrack;
 	
-	public Stage() {
+	public Stage(String soundTrack) {
 		entities = new TreeSet<Entity>(new SortByUpdate());
 		addStack = new Stack<Entity>();
 		removeStack = new Stack<Entity>();
+		this.soundTrack = soundTrack;
 	}
 	
+	public Stage() {
+		this("");
+	}
+
 	public TreeSet<Entity> getAllEntities() {
 		return entities;
 	}
 	
 	public void addEntity(Entity e) {
 		addStack.push(e);
+		e.willBeRemoved = false;
 	}
 	
 	
 	public void removeEntity(Entity e) {
-		e.flagForRemoval();
-		if(e != null) removeStack.push(e);
+		if(e != null) {
+			e.flagForRemoval();
+			if(removeStack.contains(e)){
+				return;
+			}
+			removeStack.push(e);
+		}
+	}
+	
+	public void update() {
+		for(Entity e : entities) {
+			e.onStep();
+			e.beginStep();
+		}
+		processAddStack();
+		processRemoveStack();
 	}
 
 	public void render() {
 		SortByRender comparator = new SortByRender();
-		PriorityQueue<Entity> renderQueue = new PriorityQueue<Entity>(entities.size(), comparator);
+		PriorityQueue<Entity> renderQueue = new PriorityQueue<Entity>(entities.size()+1, comparator);
 		renderQueue.addAll(entities);
 		while(!renderQueue.isEmpty()) {
 			renderQueue.poll().render();

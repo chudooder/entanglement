@@ -30,7 +30,7 @@ public class Milk extends Entity {
 	public Milk(int xx, int yy, int arg) {
 		super(xx, yy);
 		isSurface = (arg==0);
-		sprite.addAnimation("SURFACE", surface, 32, 32, 16, 75);
+		sprite.addAnimation("SURFACE", surface, 32, 32, 16, .075f);
 		sprite.setFrame((int) (Math.random()*16));
 	}
 	

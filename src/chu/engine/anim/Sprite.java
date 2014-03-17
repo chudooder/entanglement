@@ -13,8 +13,8 @@ public class Sprite {
 		animations = new HashMap<String, Animation>();
 	}
 	
-	public void addAnimation(String s, Texture t, int width, int height, int frames, int speed) {
-		Animation anim = new Animation(t, width, height, frames, speed);
+	public void addAnimation(String s, Texture t, int width, int height, int frames, float f) {
+		Animation anim = new Animation(t, width, height, frames, f);
 		animations.put(s, anim);
 		currentAnimation = anim;
 	}
@@ -77,7 +77,7 @@ public class Sprite {
 		
 		Transform t = new Transform();
 		t.setRotation(angle);
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, x, y, x+width, y+height, depth, t);
+		Renderer.render(texture, x0, 0, x1, 1, x, y, x+width, y+height, depth, t);
 	}
 
 	public void update() {
@@ -95,11 +95,11 @@ public class Sprite {
 		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
 		
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, (int)x, (int)y, (int)x+width, (int)y+height, depth, t);
+		Renderer.render(texture, x0, 0, x1, 1, (int)x, (int)y, (int)x+width, (int)y+height, depth, t);
 	}
 
-	public void setSpeed(int i) {
-		currentAnimation.setSpeed(i);
+	public void setSpeed(float f) {
+		currentAnimation.setSpeed(f);
 	}
 	
 }

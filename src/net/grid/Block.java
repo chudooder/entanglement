@@ -10,7 +10,6 @@ import net.entity.KickHitbox;
 import net.entity.Tether;
 import net.stage.EntanglementStage;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -19,7 +18,6 @@ import chu.engine.Collidable;
 import chu.engine.Direction;
 import chu.engine.Entity;
 import chu.engine.RectangleHitbox;
-import chu.engine.anim.Renderer;
 import chu.engine.anim.Sprite;
 
 public class Block extends GriddedEntity implements Collidable {
@@ -62,8 +60,8 @@ public class Block extends GriddedEntity implements Collidable {
 	public Block(int x, int y, int colorArg) {
 		super(x, y);
 		glow = new Sprite();
-		glow.addAnimation("BLUE", blue_glow, 32, 32, 4, 75);
-		glow.addAnimation("ORANGE", orange_glow, 32, 32, 4, 75);
+		glow.addAnimation("BLUE", blue_glow, 32, 32, 4, .075f);
+		glow.addAnimation("ORANGE", orange_glow, 32, 32, 4, .075f);
 		if (colorArg == 0) {
 			sprite.addAnimation("BLUE", block_blue, 32, 32, 2, 0);
 		} else if (colorArg == 1) {

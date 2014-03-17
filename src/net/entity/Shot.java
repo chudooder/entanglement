@@ -44,9 +44,9 @@ public class Shot extends Entity implements Collidable {
 	public Shot(float x, float y, Direction d, int type, Player p) {
 		super(x, y);
 		if(type == 1) {
-			sprite.addAnimation("DEFAULT", blue_shot, 32, 32, 2, 50);
+			sprite.addAnimation("DEFAULT", blue_shot, 32, 32, 2, .05f);
 		} else {
-			sprite.addAnimation("DEFAULT", orange_shot, 32, 32, 2, 50);
+			sprite.addAnimation("DEFAULT", orange_shot, 32, 32, 2, .05f);
 		}
 		hitbox = new RectangleHitbox(this, 4, 12, 24, 8);
 		direction = d;

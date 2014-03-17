@@ -1,7 +1,7 @@
 package net.stage;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 
 import net.Entanglement;
 import net.Settings;
@@ -13,6 +13,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Entity;
+import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.MenuButton;
@@ -31,7 +32,7 @@ public class RebindKeysStage extends Stage {
 	private static Texture box_selected;
 	private static Texture box_hover;
 	private static int editing;
-	private static int hover;
+	private static int hoverIndex;
 
 	static {
 		try {
@@ -49,7 +50,7 @@ public class RebindKeysStage extends Stage {
 	public RebindKeysStage() {
 		super();
 		editing = -1;
-		hover = -1;
+		hoverIndex = -1;
 		// Set up menu buttons
 		for(int i=0; i<10; i++) {
 			addEntity(new RebindKeyButton(250, 48+36*i, 64, 32, i));
@@ -64,11 +65,11 @@ public class RebindKeysStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
-		HashMap<Integer, Boolean> keys = Entanglement.getKeys();
-		for(int key : keys.keySet()) {
-			if(keys.get(key)) {
+		List<KeyboardEvent> keys = Entanglement.getKeys();
+		for(KeyboardEvent ke : keys) {
+			if(ke.state) {
 				if(editing != -1) {
-					Settings.rebind(editing, key);
+					Settings.rebind(editing, ke.key);
 					editing = -1;
 				}
 			}
@@ -108,7 +109,7 @@ public class RebindKeysStage extends Stage {
 			if (editing == i) {
 				Renderer.render(box_selected, 0, 0, 1, 1, x0, y0 + 36 * i, x0 + 64, y0
 						+ 32 + 36 * i, 0.9f);
-			} else if (hover == i) {
+			} else if (hoverIndex == i) {
 				Renderer.render(box_hover, 0, 0, 1, 1, x0, y0 + 36 * i,
 						x0 + 64, y0 + 32 + 36 * i, 0.9f);
 			} else {
@@ -136,7 +137,7 @@ public class RebindKeysStage extends Stage {
 
 		@Override
 		public void onEnter() {
-			hover = index;
+			hoverIndex = index;
 		}
 
 		@Override
@@ -146,7 +147,7 @@ public class RebindKeysStage extends Stage {
 
 		@Override
 		public void onExit() {
-			hover = -1;
+			hoverIndex = -1;
 		}
 		
 	}

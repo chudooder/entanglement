@@ -1,7 +1,7 @@
 package net.editor;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -11,6 +11,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Entity;
+import chu.engine.KeyboardEvent;
 import chu.engine.anim.Renderer;
 
 /**
@@ -66,37 +67,37 @@ public class EditorMenu extends Entity {
 
 	@Override
 	public void beginStep() {
-		HashMap<Integer, Boolean> keys = Editor.getKeys();
-		for (int key : keys.keySet()) {
-			if(keys.get(key)) {					//Key pressed
+		List<KeyboardEvent> keys = Editor.getKeys();
+		for (KeyboardEvent ke : keys) {
+			if(ke.state) {					//Key pressed
 				if(!editingName) {
-					if(key == Keyboard.KEY_Q && editLayer < 3) {
+					if(ke.key == Keyboard.KEY_Q && editLayer < 3) {
 						editLayer++;
 						sprite.setFrame(editLayer);
-					} else if(key == Keyboard.KEY_E && editLayer > 0) {
+					} else if(ke.key == Keyboard.KEY_E && editLayer > 0) {
 						editLayer--;
 						sprite.setFrame(editLayer);
 					}
 					if (editLayer == BG_LAYER || editLayer == FG_LAYER) {	//Placing terrain/fg
-						if (key == Keyboard.KEY_W) {
+						if (ke.key == Keyboard.KEY_W) {
 							if(selectedTile >= 8) {
 								selectedTile -= 8;
 							}
 							visible = true;
 							fadeTimer = 0;
-						} else if (key == Keyboard.KEY_S) {
+						} else if (ke.key == Keyboard.KEY_S) {
 							if(selectedTile < 56) {
 								selectedTile += 8;
 							}
 							visible = true;
 							fadeTimer = 0;
-						} else if (key == Keyboard.KEY_A) {
+						} else if (ke.key == Keyboard.KEY_A) {
 							if(selectedTile > 0) {
 								selectedTile--;
 							}
 							visible = true;
 							fadeTimer = 0;
-						} else if (key == Keyboard.KEY_D) {
+						} else if (ke.key == Keyboard.KEY_D) {
 							if(selectedTile < 63) {
 								selectedTile++;
 							}
@@ -104,17 +105,17 @@ public class EditorMenu extends Entity {
 							fadeTimer = 0;
 						}
 					} else if(editLayer == ENTITY_LAYER) {			//Placing Entities
-						if (key == Keyboard.KEY_W) {
+						if (ke.key == Keyboard.KEY_W) {
 							if (arg > 0)
 								arg--;
 							visible = true;
 							fadeTimer = 0;
-						} else if (key == Keyboard.KEY_S) {
+						} else if (ke.key == Keyboard.KEY_S) {
 							if (arg < Element.getNumOfArgs(selectedType)-1)
 								arg++;
 							visible = true;
 							fadeTimer = 0;
-						} else if (key == Keyboard.KEY_A) {
+						} else if (ke.key == Keyboard.KEY_A) {
 							if (selectedType > 0) {
 								selectedType--;
 								if(arg >= Element.getNumOfArgs(selectedType))
@@ -122,7 +123,7 @@ public class EditorMenu extends Entity {
 							}
 							visible = true;
 							fadeTimer = 0;
-						} else if (key == Keyboard.KEY_D) {
+						} else if (ke.key == Keyboard.KEY_D) {
 							if (selectedType < Element.getNumOfTypes()-1) {
 								selectedType++;
 								if(arg >= Element.getNumOfArgs(selectedType))
@@ -132,24 +133,24 @@ public class EditorMenu extends Entity {
 							fadeTimer = 0;
 						}
 					} else if(editLayer == WIRE_LAYER) {
-						if (key == Keyboard.KEY_A || key == Keyboard.KEY_D) {
+						if (ke.key == Keyboard.KEY_A || ke.key == Keyboard.KEY_D) {
 							selectedWire = 1-selectedWire;
 						}
 					}
-					if (key == Keyboard.KEY_Z) {
+					if (ke.key == Keyboard.KEY_Z) {
 						renderWires = !renderWires;
 					}
-					if (key == Keyboard.KEY_X) {
+					if (ke.key == Keyboard.KEY_X) {
 						renderBackground = !renderBackground;
 					}
-					if (key == Keyboard.KEY_C) {
+					if (ke.key == Keyboard.KEY_C) {
 						renderEntities = !renderEntities;
 					}
-					if (key == Keyboard.KEY_V) {
+					if (ke.key == Keyboard.KEY_V) {
 						renderForeground = !renderForeground;
 					}
 				} else {		//is editing name
-					if(key == Keyboard.KEY_BACK && levelName.length() > 0) {
+					if(ke.key == Keyboard.KEY_BACK && levelName.length() > 0) {
 						levelName = levelName.substring(0, levelName.length()-1);
 					} else {
 						char c = Keyboard.getEventCharacter();
@@ -157,17 +158,17 @@ public class EditorMenu extends Entity {
 							levelName += c;
 					}
 				}
-				if (key == Keyboard.KEY_F2) {
+				if (ke.key == Keyboard.KEY_F2) {
 					editingName = !editingName;
 				} 
-				if (key == Keyboard.KEY_F1) { 
+				if (ke.key == Keyboard.KEY_F1) { 
 					((EditorStage)stage).getLevel().name = levelName;
 					((EditorStage)stage).getLevel().serialize();
 				}
-				if (key == Keyboard.KEY_F3) { 
+				if (ke.key == Keyboard.KEY_F3) { 
 					((EditorStage)stage).loadLevel(levelName);
 				}
-				if (key == Keyboard.KEY_F5){ 
+				if (ke.key == Keyboard.KEY_F5){ 
 					((EditorStage)stage).loadLevel("");
 				}
 			}

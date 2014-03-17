@@ -1,7 +1,7 @@
 package net.entity;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.TreeSet;
 
 import net.Entanglement;
@@ -20,6 +20,7 @@ import chu.engine.Collidable;
 import chu.engine.Direction;
 import chu.engine.Entity;
 import chu.engine.Hitbox;
+import chu.engine.KeyboardEvent;
 import chu.engine.RectangleHitbox;
 import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
@@ -70,8 +71,8 @@ public class Player extends Entity implements Collidable {
 	public Player(float x, float y) {
 		super(x, y);
 		sprite.addAnimation("JUMP", cookie_jump, 32, 32, 5, 0);
-		sprite.addAnimation("RUN", cookie_run, 32, 32, 8, 75);
-		Animation land = new Animation(cookie_land, 32, 32, 2, 75) {
+		sprite.addAnimation("RUN", cookie_run, 32, 32, 8, .075f);
+		Animation land = new Animation(cookie_land, 32, 32, 2, .075f) {
 			public void done() {
 				if(vx == 0) sprite.setAnimation("IDLE");
 				else sprite.setAnimation("RUN");
@@ -101,7 +102,7 @@ public class Player extends Entity implements Collidable {
 
 	@Override
 	public void beginStep() {
-		HashMap<Integer, Boolean> inputs = Entanglement.getKeys();
+		List<KeyboardEvent> inputs = Entanglement.getKeys();
 		float delta = Entanglement.getDeltaSeconds();
 		/* Movement */
 		if (Keyboard.isKeyDown(Settings.getKey(Settings.K_LEFT))) {
@@ -127,8 +128,8 @@ public class Player extends Entity implements Collidable {
 		x += vx * delta;
 		if(x < 0) x = 0;
 		if(x > 640-32) x = 640-32;
-		for (Integer key : inputs.keySet()) {
-			if (inputs.get(key) && key == Settings.getKey(Settings.K_JUMP) && isGrounded()) {
+		for (KeyboardEvent ke : inputs) {
+			if (ke.state && ke.key == Settings.getKey(Settings.K_JUMP) && isGrounded()) {
 				setGrounded(false);
 				vy = -250f;
 				if(!happy) sprite.setAnimation("JUMP");
@@ -156,22 +157,22 @@ public class Player extends Entity implements Collidable {
 
 		/* Kicking */
 		
-		for(int key : inputs.keySet()) {
-			if(inputs.get(key)) {
-				if (key == Settings.getKey(Settings.K_KICK)) {
+		for(KeyboardEvent ke : inputs) {
+			if(ke.state) {
+				if (ke.key == Settings.getKey(Settings.K_KICK)) {
 					stage.addEntity(new KickHitbox(x+8+12*facing.getUnitX(), y/32*32, facing));
 					vx += 150*facing.getUnitX();
 				}
 				
-				if (key == Settings.getKey(Settings.K_FIRE1)) {
+				if (ke.key == Settings.getKey(Settings.K_FIRE1)) {
 					stage.addEntity(new Shot(x, y, facing, 1, this));
 				}
 				
-				if (key == Settings.getKey(Settings.K_FIRE2)){ 
+				if (ke.key == Settings.getKey(Settings.K_FIRE2)){ 
 					stage.addEntity(new Shot(x, y, facing, 2, this));
 				}
 				
-				if (key == Settings.getKey(Settings.K_CLEAR)) {
+				if (ke.key == Settings.getKey(Settings.K_CLEAR)) {
 					if(blueTether != null) {
 						blueTether.setTether(null);
 						blueTether.setEnergized(0);
@@ -184,7 +185,7 @@ public class Player extends Entity implements Collidable {
 					orangeTether = null;
 				}
 				
-				if (key == Settings.getKey(Settings.K_RESET)) {
+				if (ke.key == Settings.getKey(Settings.K_RESET)) {
 					((EntanglementStage)stage).resetLevel();
 				}
 			}

@@ -10,8 +10,8 @@ public class Animation {
 	private int height;
 	private int length;
 	private int currentFrame;
-	private int counter;
-	protected int speed;			//Time for each frame in milliseconds
+	private float counter;
+	protected float speed;			//Time for each frame in seconds
 	
 	public Animation(Texture t) {
 		texture = t;
@@ -21,7 +21,7 @@ public class Animation {
 		speed = 0;
 	}
 	
-	public Animation(Texture t, int width, int height, int frames, int speed) {
+	public Animation(Texture t, int width, int height, int frames, float speed) {
 		this(t);
 		this.width = width;
 		this.height = height;
@@ -38,8 +38,8 @@ public class Animation {
 	
 	
 	public void update() {
-		if(speed != 0) counter += Game.getDelta();
-		if(speed != 0 && counter/1000000 > Math.abs(speed)) {
+		if(speed != 0) counter += Game.getDeltaSeconds();
+		if(speed != 0 && counter > Math.abs(speed)) {
 			increment();
 			counter = 0;
 		}
@@ -66,8 +66,12 @@ public class Animation {
 		this.currentFrame = i;
 	}
 
-	public void setSpeed(int i) {
-		speed = i;
+	public void setSpeed(float f) {
+		speed = f;
+	}
+
+	public float getSpeed() {
+		return speed;
 	}
 	
 

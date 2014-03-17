@@ -42,12 +42,12 @@ public class Exit extends GriddedEntity implements Buttonable {
 	
 	public Exit(int x, int y, boolean open) {
 		super(x, y);
-		Animation slideOpen = new Animation(slide_open, 32, 32, 4, 75) {
+		Animation slideOpen = new Animation(slide_open, 32, 32, 4, .075f) {
 			public void done() {
 				sprite.setAnimation("OPEN");
 			}
 		};
-		Animation slideClosed = new Animation(slide_closed, 32, 32, 4, 75) {
+		Animation slideClosed = new Animation(slide_closed, 32, 32, 4, .075f) {
 			public void done() {
 				sprite.setAnimation("CLOSED");
 			}

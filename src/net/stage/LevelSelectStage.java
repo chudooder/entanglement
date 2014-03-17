@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import net.Entanglement;
 import net.Settings;
@@ -20,6 +21,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Entity;
+import chu.engine.KeyboardEvent;
 import chu.engine.MouseEvent;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
@@ -242,10 +244,10 @@ public class LevelSelectStage extends Stage {
 
 	@Override
 	public void beginStep() {
-		HashMap<Integer, Boolean> keys = Entanglement.getKeys();
-		HashMap<MouseEvent, Boolean> mouseEvents = Entanglement
+		List<KeyboardEvent> keys = Entanglement.getKeys();
+		List<MouseEvent> mouseEvents = Entanglement
 				.getMouseEvents();
-		for (MouseEvent event : mouseEvents.keySet()) {
+		for (MouseEvent event : mouseEvents) {
 			if (event.dwheel < 0) {
 				if (offset < levelList.size() - LIST_SIZE)
 					offset++;
@@ -254,9 +256,9 @@ public class LevelSelectStage extends Stage {
 					offset--;
 			}
 		}
-		for (int key : keys.keySet()) {
-			if (keys.get(key)) {
-				if (key == Settings.getKey(Settings.K_DOWN)) {
+		for (KeyboardEvent ke : keys) {
+			if (ke.state) {
+				if (ke.key == Settings.getKey(Settings.K_DOWN)) {
 					currentLevel++;
 					if (currentLevel == levelList.size()) {
 						currentLevel = 0;
@@ -266,7 +268,7 @@ public class LevelSelectStage extends Stage {
 							offset++;
 						}
 					}
-				} else if (key == Settings.getKey(Settings.K_UP)) {
+				} else if (ke.key == Settings.getKey(Settings.K_UP)) {
 					currentLevel--;
 					if (currentLevel < 0) {
 						currentLevel = levelList.size() - 1;
@@ -276,16 +278,16 @@ public class LevelSelectStage extends Stage {
 							offset--;
 						}
 					}
-				} else if (key == Keyboard.KEY_RETURN) {
+				} else if (ke.key == Keyboard.KEY_RETURN) {
 					startLevel();
-				} else if (key == Keyboard.KEY_INSERT) {
+				} else if (ke.key == Keyboard.KEY_INSERT) {
 					cheat++;
 					if (cheat == 3) {
 						for (LevelEntry e : levelList) {
 							e.setOpen();
 						}
 					}
-				} else if (key == Keyboard.KEY_DELETE) {
+				} else if (ke.key == Keyboard.KEY_DELETE) {
 					cheat--;
 					if (cheat == -10) {
 						for (LevelEntry e : levelList) {
@@ -294,7 +296,7 @@ public class LevelSelectStage extends Stage {
 						}
 						levelList.get(0).setOpen();
 					}
-				} else if (key == Keyboard.KEY_ESCAPE) {
+				} else if (ke.key == Keyboard.KEY_ESCAPE) {
 					saveData();
 					Entanglement.setCurrentStage(Entanglement.mainMenu);
 				}

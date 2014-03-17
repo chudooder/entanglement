@@ -1,6 +1,6 @@
 package net.stage;
 
-import java.util.HashMap;
+import java.util.List;
 
 import net.Entanglement;
 import net.Level;
@@ -12,6 +12,7 @@ import org.newdawn.slick.Color;
 import chu.engine.Collidable;
 import chu.engine.Entity;
 import chu.engine.Hitbox;
+import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 
@@ -57,10 +58,10 @@ public class EntanglementStage extends Stage {
 	}
 
 	public void beginStep() {
-		HashMap<Integer, Boolean> keys = Entanglement.getKeys();
-		for (int key : keys.keySet()) {
-			if (keys.get(key)) {
-				if (key == Keyboard.KEY_ESCAPE) {
+		List<KeyboardEvent> keys = Entanglement.getKeys();
+		for (KeyboardEvent ke : keys) {
+			if (ke.state) {
+				if (ke.key == Keyboard.KEY_ESCAPE) {
 					Entanglement.setCurrentStage(Entanglement.selectStage);
 				}
 			}

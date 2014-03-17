@@ -17,5 +17,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Entanglement/ini4j/ini4j-0.5.2-SNAPSHOT-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="json-simple/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

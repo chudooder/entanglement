@@ -1,11 +1,13 @@
 package net.entity;
 
-import java.util.HashMap;
+import java.util.List;
+
+import net.Entanglement;
 
 import org.newdawn.slick.Color;
 
-import net.Entanglement;
 import chu.engine.Entity;
+import chu.engine.KeyboardEvent;
 
 /**
  * self-esteem wrecker
@@ -28,9 +30,9 @@ public class RunTimer extends Entity {
 	public void beginStep() {
 		if(active) time += Entanglement.getDeltaMillis();
 		//Timing begins when you press any key
-		HashMap<Integer, Boolean> keys = Entanglement.getKeys();
-		for(int key : keys.keySet()) {
-			if(keys.get(key)) {
+		List<KeyboardEvent> keys = Entanglement.getKeys();
+		for(KeyboardEvent ke : keys) {
+			if(ke.state) {
 				active = true;
 			}
 		}

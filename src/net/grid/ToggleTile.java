@@ -56,9 +56,9 @@ public class ToggleTile extends GriddedEntity implements Buttonable {
 	public void toggle() {
 		solid = !solid;
 		if(solid) {
-			sprite.setSpeed(-75);
+			sprite.setSpeed(-.075f);
 		} else {
-			sprite.setSpeed(75);
+			sprite.setSpeed(.075f);
 		}
 	}
 
