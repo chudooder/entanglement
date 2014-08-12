@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import chu.engine.Collidable;
+import chu.engine.Direction;
 import chu.engine.Entity;
 import chu.engine.Hitbox;
 import chu.engine.KeyboardEvent;
@@ -26,6 +27,7 @@ public class EntanglementStage extends Stage {
 	private boolean reset;
 	private boolean timing;
 	private RunTimer timer;
+	private Direction gravityDir = Direction.EAST;
 
 	public EntanglementStage() {
 		super();
@@ -92,6 +94,14 @@ public class EntanglementStage extends Stage {
 			Entanglement.setCurrentStage(Entanglement.createStageFromLevel(
 					LevelSelectStage.getLevel(level.getName()), timing));
 		}
+	}
+	
+	public Direction getGravityDir() {
+		return gravityDir;
+	}
+	
+	public void setGravityDir(Direction dir) {
+		gravityDir = dir;
 	}
 
 	public void render() {

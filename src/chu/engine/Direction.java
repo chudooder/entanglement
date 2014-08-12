@@ -86,4 +86,7 @@ public enum Direction {
 		return NONE;
 	}
 	
+	public String toString() {
+		return this.name();
+	}
 }

@@ -94,9 +94,10 @@ public class Block extends GriddedEntity implements Collidable {
 	@Override
 	public void beginStep() {
 		super.beginStep();
+		Direction gravity = ((EntanglementStage)stage).getGravityDir();
 		if (y - spriteY < 16) {
-			if(!(((EntanglementStage)stage).getLevel().get(xcoord, ycoord-1) instanceof Block)) {
-				move(Direction.SOUTH, new ArrayList<GriddedEntity>());
+			if(!(((EntanglementStage)stage).getLevel().get(xcoord + gravity.getUnitX(), ycoord - gravity.getUnitY()) instanceof Block)) {
+				move(gravity, new ArrayList<GriddedEntity>());
 			}
 		}
 	}
@@ -106,33 +107,35 @@ public class Block extends GriddedEntity implements Collidable {
 		super.onStep();
 		glow.update();
 		float delta = Entanglement.getDeltaSeconds();
+		Direction gravity = ((EntanglementStage)stage).getGravityDir();
+		// any translation NOT in the direction of gravity decelerates
+		// any translation in the direction of gravity accelerates
+		
 		// update the spriteX
-		spriteVX = (x - spriteX) * 20;
+		if((x - spriteX) * gravity.getUnitX() > 0) {	// is dx in direction of gravity?
+			spriteVX += 600 * gravity.getUnitX() * delta;
+		} else {
+			spriteVX = (x - spriteX) * 20;
+		}
 		float dx = Math.min(Math.abs(spriteVX * delta), Math.abs(x - spriteX));
-		if (spriteVX > 0)
-			spriteX += dx;
-		else
-			spriteX -= dx;
+		spriteX += Math.signum(spriteVX) * dx;
 		if (Math.abs(x - spriteX) < 1) {
 			spriteX = x;
 			spriteVX = 0;
 		}
+		
 		// update the spriteY
-		if (spriteY < y) { // fall down
-			spriteVY += 600 * delta;
+		if((y - spriteY) * gravity.getUnitY() > 0) {	// is dy in direction of gravity?
+			spriteVY += 600 * gravity.getUnitY() * delta;
 		} else {
-			if (spriteVY > 0) {
-				spriteY = y;
-				spriteVY = 0;
-			} else {
-				spriteVY = (y - spriteY) * 10;
-			}
+			spriteVY = (y - spriteY) * 20;
 		}
+		float dy = Math.min(Math.abs(spriteVY * delta), Math.abs(y - spriteY));
+		spriteY += Math.signum(spriteVY) * dy;
 		if (Math.abs(y - spriteY) < 1) {
 			spriteY = y;
 			spriteVY = 0;
 		}
-		spriteY += spriteVY * delta;
 	}
 
 	@Override
