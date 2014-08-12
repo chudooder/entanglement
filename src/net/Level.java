@@ -20,6 +20,7 @@ import net.grid.TerrainHitbox;
 import net.grid.ToggleTile;
 import net.stage.EntanglementStage;
 import chu.engine.Direction;
+import chu.engine.anim.Camera;
 
 /**
  * Represents an initial configuration of tiles and game objects. Also provides
@@ -135,6 +136,13 @@ public class Level {
 		return !(y < 0 || y >= height || x < 0 || x >= width);
 	}
 	
+	/**
+	 * Takes an EditorLevel and an EntanglementStage, initializes the stage with the
+	 * required starting entities, and returns the Level used as a collision map.
+	 * @param editorLevel
+	 * @param stage
+	 * @return
+	 */
 	public static Level setUpStage(EditorLevel editorLevel, EntanglementStage stage) {
 		String n = "";
 		int h = 0;
@@ -161,18 +169,20 @@ public class Level {
 				}
 				if (type == -1) {
 					level.set(j, i, null);
-				} else if (type == 0) {
+				} else if (type == 0) {	// blocks
 					Block b = new Block(j, i, arg);
 					level.set(j, i, b);
 					stage.addEntity(b);
-				} else if (type == 1) {
+				} else if (type == 1) {	// player (and camera)
 					Player p = new Player(j * 32, i * 32);
+					FloatyCamera c = new FloatyCamera(p, 16, 16);
+					stage.setCamera(c);
 					stage.addEntity(p);
-				} else if (type == 2) {
+				} else if (type == 2) {	// exit
 					Exit e = new Exit(j, i, arg == 0);
 					level.set(j, i, e);
 					stage.addEntity(e);
-				} else if(type == 3) {
+				} else if(type == 3) {	// walls
 					Wall wull =  new Wall(j, i);
 					wull.stage = stage;
 					level.set(j, i, wull);
@@ -180,14 +190,14 @@ public class Level {
 										// later
 					Button b = new Button(j * 32, i * 32, arg);
 					stage.addEntity(b);
-				} else if (type == 5) {
+				} else if (type == 5) {	// toggle tiles
 					ToggleTile tt = new ToggleTile(j, i, arg);
 					level.set(j, i, tt);
 					stage.addEntity(tt);
-				} else if (type == 6) {
+				} else if (type == 6) {	// milk
 					Milk m = new Milk(j*32, i*32, arg);
 					stage.addEntity(m);
-				} else if (type == 7) {
+				} else if (type == 7) {	// lifts
 					Lift l = new Lift(j, i, arg);
 					LiftPlatform platform = new LiftPlatform(j, i);
 					PlatformZone pz = new PlatformZone(j*32, i*32-1, platform);
@@ -196,12 +206,13 @@ public class Level {
 					stage.addEntity(pz);
 					level.set(j,i,l);
 					stage.addEntity(l);
-				} else if (type == 8) {
+				} else if (type == 8) {	// hats
 					Hat hattu = new Hat(j, i, arg);
 					stage.addEntity(hattu);
 				}
 			}
 		}
+		// optimize the terrain hitboxes first
 		for (TerrainHitbox th : level.getOptimizedTerrain(grid)) {
 			stage.addEntity(th);
 		}

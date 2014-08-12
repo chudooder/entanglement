@@ -156,10 +156,8 @@ public class LevelSelectStage extends Stage {
 	@SuppressWarnings("deprecation")
 	public void render() {
 		/* Background stuff */
-		Renderer.drawRectangle(Renderer.getCamera().getScreenX(), Renderer
-				.getCamera().getScreenY(),
-				Renderer.getCamera().getScreenX() + 640, Renderer.getCamera()
-						.getScreenY() + 480, 1.0f, Color.white);
+		Renderer.drawRectangle(getCamera().getScreenX(), getCamera().getScreenY(),
+				getCamera().getScreenX() + 640, getCamera().getScreenY() + 480, 1.0f, Color.white);
 		Renderer.drawRectangle(0, Y_OFFSET + (currentLevel - offset) * 32, 320,
 				Y_OFFSET + 32 + (currentLevel - offset) * 32, 1.0f, new Color(
 						35, 37, 136));

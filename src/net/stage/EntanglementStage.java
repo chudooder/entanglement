@@ -15,6 +15,7 @@ import chu.engine.Entity;
 import chu.engine.Hitbox;
 import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
+import chu.engine.anim.Camera;
 import chu.engine.anim.Renderer;
 
 /**
@@ -27,7 +28,7 @@ public class EntanglementStage extends Stage {
 	private boolean reset;
 	private boolean timing;
 	private RunTimer timer;
-	private Direction gravityDir = Direction.EAST;
+	private Direction gravityDir = Direction.SOUTH;
 
 	public EntanglementStage() {
 		super();

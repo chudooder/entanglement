@@ -97,10 +97,8 @@ public class RebindKeysStage extends Stage {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void render() {
-		Renderer.drawRectangle(Renderer.getCamera().getScreenX(), Renderer
-				.getCamera().getScreenY(),
-				Renderer.getCamera().getScreenX() + 640, Renderer.getCamera()
-						.getScreenY() + 480, 1.0f, Color.white);
+		Renderer.drawRectangle(getCamera().getScreenX(), getCamera().getScreenY(),
+				getCamera().getScreenX() + 640, getCamera().getScreenY() + 480, 1.0f, Color.white);
 		String[] names = { "Left", "Right", "Up", "Down", "Jump", "Kick",
 				"Blue tether", "Orange tether", "Cancel tether", "Reset" };
 		int x0 = 250;

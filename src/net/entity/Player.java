@@ -33,6 +33,7 @@ import chu.engine.anim.Transform;
  */
 public class Player extends Entity implements Collidable {
 
+	private static final int MOVE_SPEED = 128;
 	private static Texture cookie;
 	private static Texture cookie_jump;
 	private static Texture cookie_run;
@@ -114,8 +115,8 @@ public class Player extends Entity implements Collidable {
 			facing = Direction.EAST;
 			if(isGrounded() && !happy) sprite.setAnimation("RUN");
 		}
-		if(vx < -128) vx = -128;
-		if(vx > 128) vx = 128;
+		if(vx < -MOVE_SPEED) vx = -MOVE_SPEED;
+		if(vx > MOVE_SPEED) vx = MOVE_SPEED;
 		if (!(Keyboard.isKeyDown(Settings.getKey(Settings.K_LEFT)) || Keyboard
 				.isKeyDown(Settings.getKey(Settings.K_RIGHT)))) {
 			if (vx > 0) {
@@ -330,5 +331,9 @@ public class Player extends Entity implements Collidable {
 		x = oldX;
 		y = oldY;
 		return true;
+	}
+	
+	public Direction getFacingDirection() {
+		return facing;
 	}
 }

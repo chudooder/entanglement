@@ -6,9 +6,9 @@ import chu.engine.Game;
 
 public class Camera {
 	
-	Entity center;
-	int offsetX;
-	int offsetY;
+	protected Entity center;
+	protected int offsetX;
+	protected int offsetY;
 	
 	public Camera(Entity e, int oX, int oY) {
 		set(e, oX, oY);
@@ -21,19 +21,17 @@ public class Camera {
 	}
 	
 	public void lookThrough() {
-		if(center != null) {
-			glTranslatef(-(center.x + offsetX - Game.getWindowWidth()/2), 
-					-(center.y + offsetY - Game.getWindowHeight()/2), 0);
-		} 
+		glTranslatef(-((int)getScreenX()), -((int)getScreenY()), 0);
 	}
 	
 	public void lookBack() {
-		if(center != null) {
-			glTranslatef(center.x + offsetX - Game.getWindowWidth()/2, 
-					center.y + offsetY - Game.getWindowHeight()/2, 0);
-		}
+		glTranslatef((int)getScreenX(), (int)getScreenY(), 0);
 	}
 	
+	
+	/**
+	 * @return the absolute X position of this camera
+	 */
 	public float getX() {
 		if(center != null)
 			return center.x + offsetX;
@@ -41,6 +39,9 @@ public class Camera {
 			return Game.getWindowWidth()/2;
 	}
 	
+	/**
+	 * @return the absolute Y position of this camera
+	 */
 	public float getY() {
 		if(center != null)
 			return center.y + offsetY;
@@ -48,16 +49,22 @@ public class Camera {
 			return Game.getWindowHeight()/2;
 	}
 	
-	public float getScreenX() {
+	/**
+	 * @return the absolute X location of the left edge of the window view
+	 */
+	public int getScreenX() {
 		if(center != null)
-			return center.x + offsetX - Game.getWindowWidth()/2;
+			return (int) (center.x + offsetX - Game.getWindowWidth()/2);
 		else
 			return 0;
 	}
 	
-	public float getScreenY() {
+	/**
+	 * @return the absolute Y location of the top edge of the window view
+	 */
+	public int getScreenY() {
 		if(center != null)
-			return center.y + offsetY - Game.getWindowHeight()/2;
+			return (int) (center.y + offsetY - Game.getWindowHeight()/2);
 		else
 			return 0;
 	}

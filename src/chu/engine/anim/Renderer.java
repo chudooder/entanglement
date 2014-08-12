@@ -45,7 +45,6 @@ import chu.engine.Resources;
 
 public class Renderer {
 
-	private static Camera camera;
 	private static RectClip clip;
 	private static final int SCALE_FILTER = GL_NEAREST;
 	private static Color color;
@@ -57,7 +56,6 @@ public class Renderer {
 		System.out.println(GL11.glGetInteger(GL20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS));
 		stateStack = new Stack<RendererState>();
 		programs = new HashMap<String, Integer>();
-		camera = new Camera(null, 0, 0);
 		clip = null;
 		color = Color.white;
 		programs.put("default", createProgram("default", "default"));
@@ -267,14 +265,6 @@ public class Renderer {
 		color = state.color;
 		clip = state.clip;
 		stateStack.push(state);
-	}
-	
-	public static void setCamera(Camera c) {
-		camera = c;
-	}
-
-	public static Camera getCamera() {
-		return camera;
 	}
     
     public static void addClip(float f, float g, float h, float i, boolean persistent) {

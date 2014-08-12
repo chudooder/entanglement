@@ -84,7 +84,7 @@ public class Entanglement extends Game {
 			if(!paused) {
 				currentStage.beginStep();
 				currentStage.onStep();
-				Renderer.getCamera().lookThrough();
+				currentStage.getCamera().lookThrough();
 				currentStage.render();
 				currentStage.endStep();
 			}

@@ -46,15 +46,17 @@ public class RunTimer extends Entity {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void render() {
+		float offsetX = stage.getCamera().getScreenX();
+		float offsetY = stage.getCamera().getScreenY();
 		if(active) {
 			String text = String.format("%2d:%02d.%03d", (int) (time / 60000),
 					(int) (time / 1000 % 60), (int) (time % 1000));
 			int width = Entanglement.sourceSans16.getWidth(text);
-			Entanglement.sourceSans16.drawString(600 - width, 0, text, Color.black);
+			Entanglement.sourceSans16.drawString(offsetX + 600 - width, offsetY, text, Color.black);
 		} else {
 			String text = "Press a key to start the timer.";
 			int width = Entanglement.sourceSans16.getWidth(text);
-			Entanglement.sourceSans16.drawString(600 - width, 0, text, Color.black);
+			Entanglement.sourceSans16.drawString(offsetX + 600 - width, offsetY, text, Color.black);
 		}
 	}
 

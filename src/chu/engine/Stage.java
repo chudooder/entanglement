@@ -5,17 +5,21 @@ import java.util.PriorityQueue;
 import java.util.Stack;
 import java.util.TreeSet;
 
+import chu.engine.anim.Camera;
+
 public abstract class Stage {
 	protected TreeSet<Entity> entities;
 	protected Stack<Entity> addStack;
 	protected Stack<Entity> removeStack;
 	public final String soundTrack;
+	protected Camera camera;
 	
 	public Stage(String soundTrack) {
 		entities = new TreeSet<Entity>(new SortByUpdate());
 		addStack = new Stack<Entity>();
 		removeStack = new Stack<Entity>();
 		this.soundTrack = soundTrack;
+		this.camera = new Camera(null, 0, 0);
 	}
 	
 	public Stage() {
@@ -29,6 +33,14 @@ public abstract class Stage {
 	public void addEntity(Entity e) {
 		addStack.push(e);
 		e.willBeRemoved = false;
+	}
+	
+	public void setCamera(Camera c) {
+		camera = c;
+	}
+	
+	public Camera getCamera() {
+		return camera;
 	}
 	
 	
