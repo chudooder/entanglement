@@ -67,18 +67,15 @@ public class LevelSelectStage extends Stage {
 		levelList.add(new LevelEntry("Tether", 1));
 		levelList.add(new LevelEntry("Angle", 2));
 		levelList.add(new LevelEntry("Stairway", 2));
-		levelList.add(new LevelEntry("Drop", 3));
 		levelList.add(new LevelEntry("Color", 1));
 		levelList.add(new LevelEntry("Transfer", 2));
 		levelList.add(new LevelEntry("Crossover", 2));
-		levelList.add(new LevelEntry("Familiar", 4));
+		levelList.add(new LevelEntry("Drop", 4));
 		levelList.add(new LevelEntry("Underhang", 4));
-		levelList.add(new LevelEntry("Neutral", 2));
 		levelList.add(new LevelEntry("Lift", 1));
 		levelList.add(new LevelEntry("Elevate", 2));
 		levelList.add(new LevelEntry("Halfway", 3));
 		levelList.add(new LevelEntry("Delay", 3));
-		levelList.add(new LevelEntry("Stack", 4));
 		levelList.add(new LevelEntry("Bridge", 5));
 		for (int i = 0; i < 15; i++) {
 			addEntity(new LevelEntryButton(0, i * 32, 320, 32, i));
