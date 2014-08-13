@@ -16,7 +16,6 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
-import chu.engine.anim.Renderer;
 
 @SuppressWarnings("deprecation")
 /**

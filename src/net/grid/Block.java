@@ -96,6 +96,7 @@ public class Block extends GriddedEntity implements Collidable {
 		super.beginStep();
 		Direction gravity = ((EntanglementStage)stage).getGravityDir();
 		if (y - spriteY < 16) {
+			//TODO: Why the fuck did i type this
 			if(!(((EntanglementStage)stage).getLevel().get(xcoord + gravity.getUnitX(), ycoord - gravity.getUnitY()) instanceof Block)) {
 				move(gravity, new ArrayList<GriddedEntity>());
 			}

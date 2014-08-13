@@ -1,6 +1,7 @@
 package net;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import net.editor.EditorLevel;
 import net.editor.Element;
@@ -127,7 +128,7 @@ public class Level {
 	}
 	
 	public GriddedEntity get(int x, int y) {
-		if (y < 0 || y >= height || x < 0 || x >= width)
+		if (!inBounds(x, y))
 			return null;
 		return grid[y][x];
 	}
@@ -153,70 +154,80 @@ public class Level {
 		n = editorLevel.name;
 		level = new Level(w, h, n);
 		level.wireGrid = editorLevel.wireGrid;
-		Element[][] grid = editorLevel.grid;
-		Terrain terrain = new Terrain(editorLevel.foreground,editorLevel.background);
+		Element[][][] grid = editorLevel.entities;
+		Terrain terrain = new Terrain(editorLevel.tiles);
 		stage.addEntity(terrain);
-		for (int i = 0; i < grid.length; i++) {
-			for (int j = 0; j < grid[0].length; j++) {
-				int type;
-				int arg;
-				if (grid[i][j] == null) {
-					type = -1;
-					arg = -1;
-				} else {
-					type = grid[i][j].type;
-					arg = grid[i][j].arg;
-				}
-				if (type == -1) {
-					level.set(j, i, null);
-				} else if (type == 0) {	// blocks
-					Block b = new Block(j, i, arg);
-					level.set(j, i, b);
-					stage.addEntity(b);
-				} else if (type == 1) {	// player (and camera)
-					Player p = new Player(j * 32, i * 32);
-					FloatyCamera c = new FloatyCamera(p, 16, 16);
-					stage.setCamera(c);
-					stage.addEntity(p);
-				} else if (type == 2) {	// exit
-					Exit e = new Exit(j, i, arg == 0);
-					level.set(j, i, e);
-					stage.addEntity(e);
-				} else if(type == 3) {	// walls
-					Wall wull =  new Wall(j, i);
-					wull.stage = stage;
-					level.set(j, i, wull);
-				} else if (type == 4) { // 3 is terrain, which we take care of
-										// later
-					Button b = new Button(j * 32, i * 32, arg);
-					stage.addEntity(b);
-				} else if (type == 5) {	// toggle tiles
-					ToggleTile tt = new ToggleTile(j, i, arg);
-					level.set(j, i, tt);
-					stage.addEntity(tt);
-				} else if (type == 6) {	// milk
-					Milk m = new Milk(j*32, i*32, arg);
-					stage.addEntity(m);
-				} else if (type == 7) {	// lifts
-					Lift l = new Lift(j, i, arg);
-					LiftPlatform platform = new LiftPlatform(j, i);
-					PlatformZone pz = new PlatformZone(j*32, i*32-1, platform);
-					l.platform = platform;
-					stage.addEntity(platform);
-					stage.addEntity(pz);
-					level.set(j,i,l);
-					stage.addEntity(l);
-				} else if (type == 8) {	// hats
-					Hat hattu = new Hat(j, i, arg);
-					stage.addEntity(hattu);
+		for(int layer = 0; layer < 5; layer++) {
+			float renderDepth = 0.8f - 0.1f * layer;
+			for (int i = 0; i < grid[layer].length; i++) {
+				for (int j = 0; j < grid[layer][0].length; j++) {
+					int type;
+					int arg;
+					if (grid[layer][i][j] == null) {
+						type = -1;
+						arg = -1;
+					} else {
+						type = grid[layer][i][j].type;
+						arg = grid[layer][i][j].arg;
+					}
+					if (type == 0) {	// blocks
+						Block b = new Block(j, i, arg);
+						level.set(j, i, b);
+						b.renderDepth = renderDepth;
+						stage.addEntity(b);
+					} else if (type == 1) {	// player (and camera)
+						Player p = new Player(j * 32, i * 32);
+						FloatyCamera c = new FloatyCamera(p, 16, 16);
+						stage.setCamera(c);
+						p.renderDepth = renderDepth;
+						stage.addEntity(p);
+					} else if (type == 2) {	// exit
+						Exit e = new Exit(j, i, arg == 0);
+						level.set(j, i, e);
+						e.renderDepth = renderDepth;
+						stage.addEntity(e);
+					} else if(type == 3) {	// walls
+						Wall wull =  new Wall(j, i);
+						wull.stage = stage;
+						level.set(j, i, wull);
+					} else if (type == 4) { // 3 is terrain, which we take care of
+											// later
+						Button b = new Button(j * 32, i * 32, arg);
+						b.renderDepth = renderDepth;
+						stage.addEntity(b);
+					} else if (type == 5) {	// toggle tiles
+						ToggleTile tt = new ToggleTile(j, i, arg);
+						level.set(j, i, tt);
+						tt.renderDepth = renderDepth;
+						stage.addEntity(tt);
+					} else if (type == 6) {	// milk
+						Milk m = new Milk(j*32, i*32, arg);
+						m.renderDepth = renderDepth;
+						stage.addEntity(m);
+					} else if (type == 7) {	// lifts
+						Lift l = new Lift(j, i, arg);
+						LiftPlatform platform = new LiftPlatform(j, i);
+						PlatformZone pz = new PlatformZone(j*32, i*32-1, platform);
+						l.platform = platform;
+						stage.addEntity(platform);
+						stage.addEntity(pz);
+						level.set(j,i,l);
+						l.renderDepth = renderDepth;
+						stage.addEntity(l);
+					} else if (type == 8) {	// hats
+						Hat hattu = new Hat(j, i, arg);
+						hattu.renderDepth = renderDepth;
+						stage.addEntity(hattu);
+					}
 				}
 			}
 		}
 		// optimize the terrain hitboxes first
-		for (TerrainHitbox th : level.getOptimizedTerrain(grid)) {
+		for (TerrainHitbox th : level.getOptimizedTerrain(grid[2])) {
 			stage.addEntity(th);
 		}
 		stage.level = level;
+		System.out.println(Arrays.toString(level.grid[3]));
 		return level;
 	}
 

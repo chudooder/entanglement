@@ -17,8 +17,8 @@ public class FloatyCamera extends Camera {
 	
 	private Player player;
 	private static final float MAX_FLOAT_DIST = 100.0f;		// The distance in front of the player to float the camera
-	private static final float MAX_DRIFT_SPEED = 150.0f;	// Maximum speed to move the camera
-	private static final float DRIFT_ACCEL = 400.0f;
+	private static final float MAX_DRIFT_SPEED = 128.0f;	// Maximum speed to move the camera
+	private static final float DRIFT_ACCEL = 200.0f;
 	private static final float DRIFT_DECEL = 100.0f;
 	
 	private float targetX, targetY;
@@ -44,13 +44,12 @@ public class FloatyCamera extends Camera {
 		// accelerate the camera if it is far from the target location
 		if(Math.abs(currentX - targetX) > decelThreshold() || (targetX - currentX)*vx < 0) {
 			vx += DRIFT_ACCEL * delta * Math.signum(targetX - currentX);
-			System.out.println("A");
 		} else if (Math.abs(currentX - targetX) < 1) {
 			vx = 0;
 		} else {
-			System.out.println("D");
 			vx -= DRIFT_DECEL * delta * Math.signum(targetX - currentX);
 		}
+		vx = clamp(-MAX_DRIFT_SPEED, vx, MAX_DRIFT_SPEED);
 		currentX += vx * delta;
 		currentY = targetY;
 		
@@ -63,6 +62,12 @@ public class FloatyCamera extends Camera {
 	 */
 	private float decelThreshold() {
 		return (float) (Math.pow(vx, 2)/2/DRIFT_DECEL);
+	}
+	
+	private float clamp(float min, float val, float max) {
+		if(val > max) return max;
+		if(val < min) return min;
+		return val;
 	}
 	
 	public int getScreenX() {

@@ -193,8 +193,8 @@ public class LevelSelectStage extends Stage {
 		int y0 = 64;
 		int s = 10;
 		if(entry.open) {
-			Element[][] ent = levels.get(entry.name).level.grid;
-			int[][] fg = levels.get(entry.name).level.foreground;
+			Element[][] ent = levels.get(entry.name).level.entities[2];
+			int[][] fg = levels.get(entry.name).level.tiles[3];
 			for(int i=0; i<ent.length; i++) {
 				for(int j=0; j<ent[0].length; j++) {
 					Color c = Color.white;

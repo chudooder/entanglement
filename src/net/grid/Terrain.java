@@ -8,36 +8,29 @@ import chu.engine.anim.Tileset;
 public class Terrain extends Entity {
 	
 	public static Tileset tileset;
-	private int[][] background;
-	private int[][] foreground;
+	private int[][][] tiles;
 	
 	static {
 		tileset = new Tileset("res/tileset.png", 32, 32);
 	}
 	
-	public Terrain(int[][] fg, int[][] bg) {
+	public Terrain(int[][][] tiles) {
 		super(0, 0);
-		background = bg;
-		foreground = fg;
+		this.tiles = tiles;
 		renderDepth = 1.0f;
 	}
 	
 	@Override
 	public void render() {
-		//Background
-		for(int i=0; i<background.length; i++) {
-			for(int j=0; j<background[i].length; j++) {
-				if(background[i][j] != -1)
-					EditorLevel.tileset.render(j*32, i*32, background[i][j]%8, background[i][j]/8, 0.8f);
+		for(int layer = 0; layer < 5; layer ++) {
+			for(int i=0; i<tiles[layer].length; i++) {
+				for(int j=0; j<tiles[layer][i].length; j++) {
+					if(tiles[layer][i][j] != -1)
+						EditorLevel.tileset.render(j*32, i*32, tiles[layer][i][j]%8, tiles[layer][i][j]/8, 0.8f - 0.1f * layer);
+				}
 			}
 		}
-		//Foreground
-		for(int i=0; i<foreground.length; i++) {
-			for(int j=0; j<foreground[i].length; j++) {
-				if(foreground[i][j] != -1)
-					EditorLevel.tileset.render(j*32, i*32, foreground[i][j]%8, foreground[i][j]/8, 0.5f);
-			}
-		}
+
 	}
 
 	@Override
