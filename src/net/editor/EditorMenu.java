@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.KeyboardEvent;
 import chu.engine.anim.Renderer;
 
@@ -165,13 +166,26 @@ public class EditorMenu extends Entity {
 				if (ke.key == Keyboard.KEY_F5){ 
 					((EditorStage)stage).loadLevel("");
 				}
+				// resizing the level
+				if (ke.key == Keyboard.KEY_UP){ 
+					((EditorStage) stage).getLevel().resize(0, -1);
+				}
+				if (ke.key == Keyboard.KEY_DOWN){ 
+					((EditorStage) stage).getLevel().resize(0, 1);
+				}
+				if (ke.key == Keyboard.KEY_LEFT){ 
+					((EditorStage) stage).getLevel().resize(-1, 0);
+				}
+				if (ke.key == Keyboard.KEY_RIGHT){ 
+					((EditorStage) stage).getLevel().resize(1, 0);
+				}
 			}
 		}
 		
 		/* Mouse input handling */
 			if (Mouse.isButtonDown(0)) {
 				int gridX = Mouse.getX() / 32;
-				int gridY = (480 - Mouse.getY()) / 32;
+				int gridY = (Game.getWindowHeight() - Mouse.getY()) / 32;
 				if(editType == TILE_EDIT)
 					((EditorStage) stage).getLevel().setTile(selectedLayer, gridX, gridY, selectedTile);
 				if(editType == ENTITY_EDIT)
@@ -180,7 +194,7 @@ public class EditorMenu extends Entity {
 					((EditorStage) stage).getLevel().setWire(gridX, gridY, 1+selectedWire);
 			} else if (Mouse.isButtonDown(1)) {
 				int gridX = Mouse.getX() / 32;
-				int gridY = (480 - Mouse.getY()) / 32;
+				int gridY = (Game.getWindowHeight() - Mouse.getY()) / 32;
 				if(editType == TILE_EDIT)
 					((EditorStage) stage).getLevel().setTile(selectedLayer, gridX, gridY, -1);
 				if(editType == ENTITY_EDIT)
@@ -265,7 +279,7 @@ public class EditorMenu extends Entity {
 		} else {
 			Editor.messageFont.drawString(0, 0, levelName, Color.white);
 		}
-		sprite.render(640-32, 0, 0.0f);
+		sprite.render(Game.getWindowWidth()-32, 0, 0.0f);
 	}
 
 	public void setLevelName(String name) {

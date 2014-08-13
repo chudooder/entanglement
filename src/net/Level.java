@@ -234,4 +234,12 @@ public class Level {
 	public GriddedEntity getEntity(int x, int y) {
 		return grid[y][x];
 	}
+
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
 }

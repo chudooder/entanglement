@@ -134,4 +134,40 @@ public class EditorLevel implements Serializable {
 		}
 	}
 
+	public void resize(int dx, int dy) {
+		if(width+dx < 20 || height+dy < 15) return;
+		width += dx;
+		height += dy;
+		// copy the level data into new-sized arrays
+		int minX = Math.min(width, tiles[0][0].length);
+		int minY = Math.min(height, tiles[0].length);
+		// tile data first
+		int[][][] newTiles = new int[NUM_LAYERS][height][width];
+		for(int i=0; i<NUM_LAYERS; i++)
+			for(int j=0; j<newTiles[i].length; j++)
+				Arrays.fill(newTiles[i][j], -1);
+		for(int i=0; i<NUM_LAYERS; i++)
+			for(int j=0; j<minY; j++)
+				for(int k=0; k<minX; k++)
+					newTiles[i][j][k] = tiles[i][j][k];
+		// entities next
+		Element[][][] newEntities = new Element[NUM_LAYERS][height][width];
+		for(int i=0; i<NUM_LAYERS; i++)
+			for(int j=0; j<minY; j++)
+				for(int k=0; k<minX; k++)
+					newEntities[i][j][k] = entities[i][j][k];
+		// wires last
+		int[][] newWireGrid = new int[height][width];
+		for(int i=0; i<minY; i++) {
+			for(int j=0; j<minX; j++) {
+				newWireGrid[i][j] = wireGrid[i][j];
+			}
+		}
+		// then set the original fields to the new ones
+		wireGrid = newWireGrid;
+		entities = newEntities;
+		tiles = newTiles;
+		System.out.println("Level resized from "+(width-dx)+"x"+(height-dy)+" to "+width+"x"+height);
+	}
+
 }

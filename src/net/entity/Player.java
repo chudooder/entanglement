@@ -127,8 +127,11 @@ public class Player extends Entity implements Collidable {
 			}
 		}
 		x += vx * delta;
-		if(x < 0) x = 0;
-		if(x > 640-32) x = 640-32;
+		// keep player within level boundaries
+		if(x < 0) 
+			x = 0;
+		if(x > ((EntanglementStage)stage).level.getWidth()*32-32) 
+			x = ((EntanglementStage)stage).level.getWidth()*32-32;
 		for (KeyboardEvent ke : inputs) {
 			if (ke.state && ke.key == Settings.getKey(Settings.K_JUMP) && isGrounded()) {
 				setGrounded(false);

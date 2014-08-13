@@ -108,7 +108,7 @@ public class EntanglementStage extends Stage {
 	public void render() {
 		Color c0 = new Color(195, 239, 240);
 		Color c1 = new Color(224, 248, 248);
-		Renderer.drawRectangle(0, 0, 640, 480, 1.0f, c0, c0, c1, c1);
+		Renderer.drawRectangle(0, 0, level.getWidth()*32, level.getHeight()*32, 1.0f, c0, c0, c1, c1);
 		super.render();
 		//Testing code to draw text for level data
 //		for (int i = 0; i < level.grid.length; i++) {

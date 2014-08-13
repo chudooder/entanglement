@@ -12,7 +12,7 @@ public abstract class Stage {
 	protected Stack<Entity> addStack;
 	protected Stack<Entity> removeStack;
 	public final String soundTrack;
-	protected Camera camera;
+	private Camera camera;
 	
 	public Stage(String soundTrack) {
 		entities = new TreeSet<Entity>(new SortByUpdate());
@@ -37,6 +37,7 @@ public abstract class Stage {
 	
 	public void setCamera(Camera c) {
 		camera = c;
+		camera.setStage(this);
 	}
 	
 	public Camera getCamera() {

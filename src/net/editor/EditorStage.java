@@ -69,7 +69,7 @@ public class EditorStage extends Stage{
 	public void render() {
 		Color c0 = new Color(195, 239, 240);
 		Color c1 = new Color(224, 248, 248);
-		Renderer.drawRectangle(0, 0, 640, 480, 1.0f, c0, c0, c1, c1);
+		Renderer.drawRectangle(0, 0, 32*level.width, 32*level.height, 1.0f, c0, c0, c1, c1);
 		super.render();
 	}
 }

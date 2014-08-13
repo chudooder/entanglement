@@ -3,12 +3,14 @@ package chu.engine.anim;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.Stage;
 
 public class Camera {
 	
 	protected Entity center;
 	protected int offsetX;
 	protected int offsetY;
+	protected Stage stage;
 	
 	public Camera(Entity e, int oX, int oY) {
 		set(e, oX, oY);
@@ -18,6 +20,10 @@ public class Camera {
 		center = e;
 		offsetX = oX;
 		offsetY = oY;
+	}
+	
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	
 	public void lookThrough() {

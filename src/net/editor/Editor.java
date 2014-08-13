@@ -30,7 +30,7 @@ public class Editor extends Game {
 	
 	public static void main(String[] args) {
 		Editor game = new Editor();
-		game.init(640, 480, "Entanglement Level Editor");
+		game.init(1024, 768, "Entanglement Level Editor");
 		game.loop();
 	}
 	
@@ -38,6 +38,7 @@ public class Editor extends Game {
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
 		currentStage = new EditorStage();
+		Display.setResizable(false);
 		EditorMenu menu = new EditorMenu(0, 0);
 		currentStage.addEntity(menu);
 		menu.setLevelName(currentStage.getLevel().name);
